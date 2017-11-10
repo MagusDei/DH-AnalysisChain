@@ -72,3 +72,17 @@ cmin <- 0.01
 # Prediction statistics
 print(paste("Globally optimal threshold (probably overfitted):", cmin))
 print(paste("Prediction error for best threshold (%):", 100*classification_error(cmin)/length(paragraphs[, 1])))
+
+positive_data <- paragraphs[paragraphs$y == 1, 1]
+negative_data <- paragraphs[paragraphs$y == 0, 1]
+
+scores_positive <- sapply(positive_data, mean_genreization)
+scores_negative <- sapply(negative_data, mean_genreization)
+
+print(paste("Mean genreization for genre paragraphs:", mean(scores_positive)))
+print(paste("Mean genreization for non-genre paragraphs:", mean(scores_negative)))
+print(paste("Variance of genreization for genre paragraphs:", var(scores_positive)))
+print(paste("Variance of genreization for non-genre paragraphs:", var(scores_negative)))
+
+hist(scores_positive)
+hist(scores_negative)
